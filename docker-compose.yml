@@ -23,6 +23,15 @@ services:
       - mern-app
     volumes:
       - mongo-data:/data/db
+  proxy:
+    image: nginx:1.19.4
+    restart: unless-stopped
+    ports:
+      - "8200:80"
+    networks:
+      - mern-app
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
 networks:
   mern-app:
     driver: bridge
